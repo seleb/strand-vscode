@@ -2,7 +2,7 @@
 	"name": "strand-vscode",
 	"displayName": "strand VSCode",
 	"description": "support for strand files",
-	"repository": "github:seleb/strand-vscode",
+	"repository": "seleb/strand-vscode",
 	"author": "Sean S. LeBlanc <sean.s.leblanc@gmail.com>",
 	"version": "0.0.1",
 	"publisher": "seansleblanc",
