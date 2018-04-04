@@ -1,0 +1,71 @@
+{
+	"$schema":
+		"https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "strand",
+
+	"patterns": [
+		{
+			"include": "#keywords"
+		},
+		{
+			"include": "#comments"
+		}
+	],
+	"repository": {
+		"control": {
+			"patterns": [
+				{
+					"name": "keyword.control.strand",
+					"match": "(?<=<<)\\s*?(if|elseif|else|endif|do|set|print)"
+				},
+				{
+					"include": "source.js"
+				}
+			]
+		},
+		"action": {
+			"patterns": [
+				{
+					"include": "source.js"
+				}
+			]
+		},
+		"keywords": {
+			"patterns": [
+				{
+					"name": "markup.heading.strand",
+					"match": "^::(.+?)$"
+				},
+				{
+					"begin": "<<",
+					"end": ">>",
+					"patterns": [
+						{
+							"include": "#control"
+						}
+					]
+				},
+				{
+					"begin": "\\[\\[",
+					"end": "\\]\\]",
+					"patterns": [
+						{
+							"include": "#action"
+						}
+					]
+				}
+			]
+		},
+		"comments": {
+			"name": "comment",
+			"patterns": [
+				{
+					"name": "comment.line.double-slash",
+					"begin": "\\/\\/",
+					"end": "$"
+				}
+			]
+		}
+	},
+	"scopeName": "source.strand"
+}

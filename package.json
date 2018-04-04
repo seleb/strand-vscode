@@ -1,0 +1,26 @@
+{
+    "name": "strand-vscode",
+    "displayName": "strand VSCode",
+    "description": "support for strand files",
+    "version": "0.0.1",
+    "publisher": "seansleblanc",
+    "engines": {
+        "vscode": "^1.21.0"
+    },
+    "categories": [
+        "Languages"
+    ],
+    "contributes": {
+        "languages": [{
+            "id": "strand",
+            "aliases": ["strand", "strand"],
+            "extensions": [".strand",".str"],
+            "configuration": "./language-configuration.json"
+        }],
+        "grammars": [{
+            "language": "strand",
+            "scopeName": "source.strand",
+            "path": "./syntaxes/strand.tmLanguage.json"
+        }]
+    }
+}
