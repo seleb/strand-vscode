@@ -1,4 +1,5 @@
 {
+	"private": true,
 	"name": "strand-vscode",
 	"displayName": "strand VSCode",
 	"description": "support for strand files",
