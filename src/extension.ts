@@ -4,7 +4,8 @@ import * as vscode from 'vscode';
 export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(
 		vscode.languages.registerDocumentSymbolProvider({ language: 'strand' }, new StrandDocumentSymbolProvider()),
-		vscode.languages.registerFoldingRangeProvider({ language: 'strand' }, new StrandFoldingRangeProvider())
+		vscode.languages.registerFoldingRangeProvider({ language: 'strand' }, new StrandFoldingRangeProvider()),
+		vscode.languages.registerCompletionItemProvider({ language: 'strand' }, new StrandCompletionItemProvider(), '[', "'", '"', '>'),
 	);
 }
 
@@ -51,5 +52,31 @@ class StrandFoldingRangeProvider implements vscode.FoldingRangeProvider {
 			foldingRanges.push(new vscode.FoldingRange(passageLines[i], passageLines[i + 1] - 1));
 		}
 		return foldingRanges;
+	}
+}
+
+class StrandCompletionItemProvider implements vscode.CompletionItemProvider {
+	public provideCompletionItems(
+		document: vscode.TextDocument,
+		position: vscode.Position,
+		token: vscode.CancellationToken,
+		context: vscode.CompletionContext
+	): vscode.ProviderResult<vscode.CompletionItem[]> {
+		const line = document.lineAt(position.line);
+		const before = line.text.substring(0, position.character);
+		let showPassages = false;
+		{
+			const start = before.lastIndexOf('[[');
+			showPassages = showPassages || (start >= 0 && !before.substring(start).includes(']]'));
+		}
+		{
+			const start = before.lastIndexOf("this.goto('");
+			showPassages = showPassages || (start >= 0 && !before.substring(start).includes("')"));
+		}
+		{
+			const start = before.lastIndexOf('this.goto("');
+			showPassages = showPassages || (start >= 0 && !before.substring(start).includes('")'));
+		}
+		return showPassages ? getPassageLines(document).map(i => new vscode.CompletionItem(document.lineAt(i).text.substring(2), vscode.CompletionItemKind.Reference)) : [];
 	}
 }
