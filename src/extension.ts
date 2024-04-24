@@ -23,7 +23,7 @@ class StrandDocumentSymbolProvider implements vscode.DocumentSymbolProvider {
 				if (line.text.startsWith("::")) {
 					symbols.push(
 						new vscode.SymbolInformation(
-							line.text.substr(2),
+							line.text.substring(2),
 							vscode.SymbolKind.Object,
 							"passage",
 							new vscode.Location(document.uri, line.range)
