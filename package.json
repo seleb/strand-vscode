@@ -9,7 +9,7 @@
 		"url": "https://github.com/seleb/strand-vscode.git"
 	},
 	"author": "Sean S. LeBlanc <sean.s.leblanc@gmail.com>",
-	"version": "0.0.5",
+	"version": "0.0.6",
 	"publisher": "seansleblanc",
 	"engines": {
 		"vscode": "^1.88.0"
