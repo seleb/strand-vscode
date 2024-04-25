@@ -26,6 +26,22 @@ class StrandDocumentSymbolProvider implements vscode.DocumentSymbolProvider {
 
 		const passageLines = getPassageLines(document);
 
+		symbols.push(
+			new vscode.SymbolInformation(
+				'top',
+				vscode.SymbolKind.Constant,
+				'',
+				new vscode.Location(document.uri, new vscode.Position(0, 0))
+			)
+		);
+		symbols.push(
+			new vscode.SymbolInformation(
+				'bottom',
+				vscode.SymbolKind.Constant,
+				'',
+				new vscode.Location(document.uri, new vscode.Position(document.lineCount-1, 0))
+			)
+		);
 		for (let i = 0; i < passageLines.length - 1; ++i) {
 			const line = document.lineAt(passageLines[i]);
 			symbols.push(
